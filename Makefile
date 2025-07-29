@@ -39,3 +39,9 @@ nginx-reload:
 
 phpmyadmin:
 	docker compose -f .cd/docker-compose.yml exec phpmyadmin bash
+
+create-admin:
+	docker compose -f .cd/docker-compose.yml exec app php artisan tinker --execute="\\App\\Models\\User::updateOrCreate(['email' => 'admin@admin.com'], ['name' => 'Admin', 'password' => bcrypt('admin123'), 'role' => 'admin'])"
+
+create-customer:
+	docker compose -f .cd/docker-compose.yml exec app php artisan tinker --execute="\App\Models\User::updateOrCreate(['email' => 'customer@customer.com'], ['name' => 'Customer', 'password' => bcrypt('customer123'), 'role' => 'customer'])"
