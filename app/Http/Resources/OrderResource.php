@@ -20,8 +20,7 @@ class OrderResource extends JsonResource
       'user_id' => $this->user_id,
       'status' => $this->status,
       'total_price' => $this->total_price,
-      'created_at' => $this->created_at,
-      'updated_at' => $this->updated_at,
+      'created_at' => $this->created_at->format('Y-m-d H:i:s'),
       'products' => $this->whenLoaded('products', function () {
         return $this->products->map(function ($product) {
           return [
