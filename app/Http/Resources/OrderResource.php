@@ -19,7 +19,7 @@ class OrderResource extends JsonResource
       'id' => $this->id,
       'user_id' => $this->user_id,
       'status' => $this->status,
-      'total_price' => $this->total_price,
+      'total_price' => floatval($this->total_price),
       'created_at' => $this->created_at->format('Y-m-d H:i:s'),
       'products' => $this->whenLoaded('products', function () {
         return $this->products->map(function ($product) {
@@ -29,9 +29,11 @@ class OrderResource extends JsonResource
             'sku' => $product->sku,
             'price' => $product->price,
             'stock_quantity' => $product->stock_quantity,
+            'created_at' => $product->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $product->updated_at->format('Y-m-d H:i:s'),
             'items' => [
-              'quantity' => $product->pivot->quantity,
-              'unit_price' => $product->pivot->unit_price,
+              'quantity' => intval($product->pivot->quantity),
+              'unit_price' => floatval($product->pivot->unit_price),
             ],
           ];
         });
