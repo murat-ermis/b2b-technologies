@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Product;
 
+use App\Role;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
@@ -15,7 +16,7 @@ class StoreRequest extends FormRequest
    */
   public function authorize(): bool
   {
-    return true;
+    return auth()->user()?->role === Role::Admin->value;
   }
 
   /**
@@ -27,7 +28,7 @@ class StoreRequest extends FormRequest
   {
     return [
       'name' => 'required|string|max:255',
-      'sku' => 'required|string|max:255|unique:products,sku',
+      'sku' => 'required|string|max:255|unique:products,sku,NULL,id,deleted_at,NULL',
       'price' => 'required|numeric|min:0',
       'stock_quantity' => 'required|integer|min:0',
     ];
@@ -43,4 +44,3 @@ class StoreRequest extends FormRequest
     throw new ValidationException($validator, response()->json($validator->errors(), 422));
   }
 }
-

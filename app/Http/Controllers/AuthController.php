@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Role;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class AuthController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'password' => $request->password,
-        'role' => $request->role ?? 'customer',
+        'role' => $request->role ?? Role::Customer->value,
       ]);
 
       $token = $user->createToken('api_token')->plainTextToken;

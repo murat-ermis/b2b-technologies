@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Product;
 
+use App\Role;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
@@ -15,7 +16,7 @@ class UpdateRequest extends FormRequest
    */
   public function authorize(): bool
   {
-    return true;
+    return auth()->user()?->role === Role::Admin->value;
   }
 
   /**
@@ -27,7 +28,7 @@ class UpdateRequest extends FormRequest
   {
     return [
       'name' => 'sometimes|required|string|max:255',
-      'sku' => 'sometimes|required|string|max:255|unique:products,sku,' . $this->product,
+      'sku' => 'sometimes|required|string|max:255|unique:products,sku,' . $this->product?->id,
       'price' => 'sometimes|required|numeric|min:0',
       'stock_quantity' => 'sometimes|required|integer|min:0',
     ];
