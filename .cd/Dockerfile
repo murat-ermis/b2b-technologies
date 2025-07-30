@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     unzip \
+    && pecl install redis \
+    && docker-php-ext-enable redis \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Composer yükle
@@ -25,4 +27,3 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 EXPOSE 9000
 
 CMD ["php-fpm"]
-

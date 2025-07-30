@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Cache;
+use function Pest\Laravel\put;
 
 class ProductController extends Controller
 {
