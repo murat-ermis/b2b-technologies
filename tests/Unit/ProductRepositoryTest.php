@@ -19,14 +19,14 @@ describe('ProductRepository', function () {
 
   it('can list all products', function () {
     $products = $this->repo->all();
-    expect($products)->toHaveCount(1);
-    expect($products->first()->name)->toBe('Test Product');
+    expect($products)->toHaveCount(1)
+      ->and($products->first()->name)->toBe('Test Product');
   });
 
   it('can find a product by id', function () {
     $product = $this->repo->findOrFail($this->product->id);
-    expect($product)->not()->toBeNull();
-    expect($product->sku)->toBe('SKU-1234');
+    expect($product)->not()->toBeNull()
+      ->and($product->sku)->toBe('SKU-1234');
   });
 
   it('can create a product', function () {
@@ -37,9 +37,9 @@ describe('ProductRepository', function () {
       'stock_quantity' => 10,
     ];
     $product = $this->repo->create($data);
-    expect($product)->not()->toBeNull();
-    expect($product->name)->toBe('New Product');
-    expect($product->sku)->toBe('SKU-NEW');
+    expect($product)->not()->toBeNull()
+      ->and($product->name)->toBe('New Product')
+      ->and($product->sku)->toBe('SKU-NEW');
   });
 
   it('can update a product', function () {
@@ -50,9 +50,9 @@ describe('ProductRepository', function () {
       'stock_quantity' => 5,
     ];
     $updated = $this->repo->update($this->product, $data);
-    expect($updated->name)->toBe('Updated Product');
-    expect($updated->price)->toEqual(150);
-    expect($updated->stock_quantity)->toEqual(5);
+    expect($updated->name)->toBe('Updated Product')
+      ->and($updated->price)->toEqual(150)
+      ->and($updated->stock_quantity)->toEqual(5);
   });
 
   it('can delete a product', function () {
