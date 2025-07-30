@@ -68,7 +68,7 @@ services:
     container_name: b2b-technologies-phpmyadmin
     restart: unless-stopped
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: b2b-technologies-mysql
       PMA_USER: b2b_technologies
       PMA_PASSWORD: secret
     ports:
